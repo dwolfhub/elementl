@@ -1,8 +1,10 @@
 <?php
 namespace Elementl\Helper;
 
-use ArrayAccess;
-
+/**
+ * Class Dictionary
+ * @package Elementl\Helper
+ */
 class Dictionary
 {
     /**

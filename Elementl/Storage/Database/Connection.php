@@ -3,6 +3,10 @@ namespace Elementl\Storage\Database;
 
 use PDO;
 
+/**
+ * Class Connection
+ * @package Elementl\Storage\Database
+ */
 class Connection
 {
     /**

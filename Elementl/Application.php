@@ -65,6 +65,6 @@ class Application
 
     public function run()
     {
-        echo 'running';
+        $routes = $this->theme->getRoutes();
     }
 }
