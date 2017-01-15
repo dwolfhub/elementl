@@ -23,11 +23,6 @@ class Application
     protected $connection;
 
     /**
-     * @var Theme
-     */
-    protected $theme;
-
-    /**
      * @var Request
      */
     protected $request;
@@ -42,9 +37,6 @@ class Application
 
     public function bootstrap()
     {
-        $themeFactory = new ThemeFactory($this->settings['dir'] . '/Themes');
-        $this->theme = $themeFactory->create($this->settings['theme']);
-
         $this->request = Request::fromGlobals();
     }
 
@@ -65,6 +57,13 @@ class Application
 
     public function run()
     {
-        $routes = $this->theme->getRoutes();
+        $themeFactory = new ThemeFactory($this->settings['dir'] . '/Themes');
+        $theme = $themeFactory->create($this->settings['theme']);
+
+        $routes = $theme->getRoutes();
+        $router = new Router($routes);
+        $file = $router->match($this->request->getUri());
+
+        print($theme->getFileContents($file));
     }
 }

@@ -3,6 +3,10 @@ namespace Elementl\Theme;
 
 use RuntimeException;
 
+/**
+ * Class Theme
+ * @package Elementl\Theme
+ */
 class Theme
 {
     /**
@@ -27,10 +31,13 @@ class Theme
             );
         }
 
-        $this->$dir = $dir;
+        $this->dir = $dir;
         $this->settings = require $themeSettingsFile;
     }
 
+    /**
+     * @return array
+     */
     public function getRoutes()
     {
         if (empty($this->settings['routes'])) {
@@ -48,6 +55,12 @@ class Theme
      */
     public function getFileContents($fileName)
     {
+        if (!file_exists($this->dir . '/' . $fileName)) {
+            throw new RuntimeException(
+                sprintf('Invalid file name "%s" in theme settings.php file', $fileName)
+            );
+        }
+
         return file_get_contents($this->dir . '/' . $fileName);
     }
 }
