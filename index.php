@@ -5,7 +5,7 @@ spl_autoload_register(function ($class_name) {
     require_once str_replace('\\', '/', $class_name . '.php');
 });
 
-$app = new Elementl\Application(require __DIR__ . '/config.php');
+$app = new Elementl\Application(require __DIR__ . '/settings.php');
 $app->bootstrap();
 
 if ($app->isInstalled()) {

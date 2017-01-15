@@ -31,6 +31,6 @@ class ThemeFactory
             );
         }
 
-        return new Theme($chosenThemeDir);
+        return new Theme($chosenThemeDir, new FileParser($chosenThemeDir));
     }
 }

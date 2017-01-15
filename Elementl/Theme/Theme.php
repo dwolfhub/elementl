@@ -15,14 +15,20 @@ class Theme
     protected $dir;
 
     /**
+     * @var FileParser
+     */
+    protected $fileParser;
+
+    /**
      * @var array
      */
     protected $settings;
 
     /**
      * @param string $dir
+     * @param FileParser $fileParser
      */
-    public function __construct($dir)
+    public function __construct($dir, FileParser $fileParser)
     {
         $themeSettingsFile = $dir . '/settings.php';
         if (!file_exists($themeSettingsFile)) {
@@ -32,6 +38,7 @@ class Theme
         }
 
         $this->dir = $dir;
+        $this->fileParser = $fileParser;
         $this->settings = require $themeSettingsFile;
     }
 
@@ -55,12 +62,6 @@ class Theme
      */
     public function getFileContents($fileName)
     {
-        if (!file_exists($this->dir . '/' . $fileName)) {
-            throw new RuntimeException(
-                sprintf('Invalid file name "%s" in theme settings.php file', $fileName)
-            );
-        }
-
-        return file_get_contents($this->dir . '/' . $fileName);
+        return $this->fileParser->parseFile($fileName)->saveHTML();
     }
 }
